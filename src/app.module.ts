@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { StateModule } from './state/state.module';
 import { CityModule } from './city/city.module';
 import { AddressModule } from './address/address.module';
+import { CacheModule } from './cache/cache.module';
 
 const migrations = [
   createTableUser1677268460545,
@@ -44,6 +45,7 @@ const migrations = [
     StateModule,
     CityModule,
     AddressModule,
+    CacheModule,
   ],
   controllers: [],
   providers: [],
