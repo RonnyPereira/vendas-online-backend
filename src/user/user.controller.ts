@@ -1,6 +1,7 @@
-import { Controller, Post } from '@nestjs/common';
-import { Body, Get } from '@nestjs/common/decorators';
+import { Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Get, UsePipes } from '@nestjs/common/decorators';
 import { CreateUserDto } from './dtos/createUser.dto';
+import { ReturnUserDto } from './dtos/returnUser.dto';
 import { UserEntity } from './entities/user.entity';
 
 import { UserService } from './user.service';
@@ -9,13 +10,16 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UsePipes(ValidationPipe)
   @Post()
   async createUser(@Body() createUser: CreateUserDto): Promise<UserEntity> {
     return this.userService.createUser(createUser);
   }
 
   @Get()
-  async getAllUser(): Promise<UserEntity[]> {
-    return this.userService.getAllUser();
+  async getAllUser(): Promise<ReturnUserDto[]> {
+    return (await this.userService.getAllUser()).map(
+      (userEntity) => new ReturnUserDto(userEntity),
+    );
   }
 }
