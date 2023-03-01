@@ -22,7 +22,7 @@ export class CityService {
       }),
     );
   }
-
+  // verifica se a cidade ja existe para nao gerar erro 500
   async findCityById(cityId: number): Promise<CityEntity> {
     const city = await this.cityRepository.findOne({
       where: {
